@@ -1,8 +1,8 @@
 
 class ConfigManager:
     def __init__(self):
-        self._min_value = 1
-        self._max_value = 100
+        self._min_value = 50
+        self._max_value = 50
         
     def get_min_value(self):
         return self._min_value
