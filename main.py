@@ -4,7 +4,7 @@ def guessing_game():
     """
     A simple number guessing game.
     """
-    number_to_guess = random.randint(1, 100)
+    number_to_guess = 50
     number_of_tries = 0
     guessed_correctly = False
 
