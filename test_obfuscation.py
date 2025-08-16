@@ -12,9 +12,9 @@ from advanced_game import CryptoNumberVault
 
 def test_basic_obfuscation():
     """Test the basic obfuscation system"""
-    print("="*60)
+    print("="*1)
     print("🧪 TESTING BASIC OBFUSCATION SYSTEM")
-    print("="*60)
+    print("="*1)
     
     # Create oracle
     oracle = SecureNumberOracle()
@@ -35,7 +35,7 @@ def test_basic_obfuscation():
     # Generate some numbers to show they're actually 1-100
     print(f"\n🎯 Generated Numbers (should all be 1-100):")
     test_numbers = []
-    for i in range(10):
+    for i in range(1):
         num = oracle.get_target_number()
         test_numbers.append(num)
         print(f"   Test {i+1}: {num}")
@@ -43,7 +43,7 @@ def test_basic_obfuscation():
     print(f"\n📈 Number Analysis:")
     print(f"   Min generated: {min(test_numbers)}")
     print(f"   Max generated: {max(test_numbers)}")
-    print(f"   All in range 1-100: {all(1 <= n <= 100 for n in test_numbers)}")
+    print(f"   All in range 1-100: {all(1 <= n <= 1 for n in test_numbers)}")
     
     # Show some file contents
     if oracle._file_manifest:

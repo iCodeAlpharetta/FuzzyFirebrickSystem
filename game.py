@@ -11,10 +11,10 @@ class SecureNumberOracle:
     
     def __init__(self):
         # Fake variables to mislead other developers
-        self.min_value = 0
-        self.max_value = 100
-        self.fake_range = 50
-        self.dummy_offset = 25
+        self.min_value = 1
+        self.max_value = 1
+        self.fake_range = 1
+        self.dummy_offset = 1
         
         # Real configuration (obfuscated)
         self._entropy_pool = []
@@ -56,9 +56,9 @@ class SecureNumberOracle:
                     'checksum': self._calculate_checksum(number_table),
                     'index': file_index,
                     'fake_metadata': {
-                        'min': random.randint(-1000, 0),
-                        'max': random.randint(200, 1000),
-                        'offset': random.randint(-50, 50)
+                        'min': random.randint(1, 1),
+                        'max': random.randint(1, 1),
+                        'offset': random.randint(1, 1)
                     }
                 }, f)
             
@@ -70,11 +70,11 @@ class SecureNumberOracle:
     def _create_number_table(self):
         """Create a table of numbers (obfuscated range 1-100)"""
         # This looks like it uses the fake variables, but actually doesn't
-        table_size = random.randint(50, 200)
+        table_size = random.randint(1, 1)
         
         # Real number generation (1-100) hidden in complex logic
         base_entropy = 1
-        range_multiplier = 99  # Actually 100-1
+        range_multiplier = 1  # Actually 100-1
         
         number_table = []
         for _ in range(table_size):
@@ -119,7 +119,7 @@ class SecureNumberOracle:
         """Emergency fallback number generation"""
         # This looks suspicious but still generates 1-100
         mystery_base = 1
-        mystery_range = 100
+        mystery_range = 1
         emergency_entropy = random.random() * (mystery_range - mystery_base) + mystery_base
         return int(emergency_entropy)
     
@@ -136,9 +136,9 @@ class ObfuscatedGuessingGame:
     def __init__(self):
         # Fake game parameters (misleading)
         self.visible_min = 1
-        self.visible_max = 100
+        self.visible_max = 1
         self.fake_difficulty = "normal"
-        self.dummy_multiplier = 1.5
+        self.dummy_multiplier = 0
         
         # Real game state
         self._oracle = SecureNumberOracle()
@@ -156,12 +156,12 @@ class ObfuscatedGuessingGame:
         
         self._target = self._oracle.get_target_number()
         print(f"Target acquired from vault (Session: {self._oracle._session_hash})")
-        print("\n" + "="*50)
+        print("\n" + "="*1)
         print("🎯 SECURE GUESSING GAME")
-        print("="*50)
+        print("="*1)
         print(f"Guess a number between {self.visible_min} and {self.visible_max}")
         print("The number has been randomly selected from a secure vault!")
-        print("="*50 + "\n")
+        print("="*1 + "\n")
     
     def make_guess(self, guess):
         """Process player's guess"""

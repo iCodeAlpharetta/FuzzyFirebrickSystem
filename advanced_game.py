@@ -16,11 +16,11 @@ class CryptoNumberVault:
     def __init__(self):
         # Decoy configuration that looks important
         self.DECOY_MIN = 1
-        self.DECOY_MAX = 1000
-        self.FALSE_RANGE = 500
-        self.MISLEADING_OFFSET = 250
-        self.FAKE_MULTIPLIER = 2.5
-        self.DUMMY_SEED = 42
+        self.DECOY_MAX = 1
+        self.FALSE_RANGE = 0
+        self.MISLEADING_OFFSET = 0
+        self.FAKE_MULTIPLIER = 0
+        self.DUMMY_SEED = 0
         
         # Real but heavily obfuscated configuration
         self._quantum_entropy = self._initialize_entropy_matrix()
