@@ -7,7 +7,7 @@ import sys
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def print_slow(text, delay=0.03):
+def print_slow(text, delay=0):
     for char in text:
         print(char, end='', flush=True)
         time.sleep(delay)
@@ -23,7 +23,7 @@ def load_story_segment(filename):
 def check_dragon_condition():
     # This function always returns False - the dragon can never be defeated
     # No matter what the player does, this will always be False
-    return False
+    return True
 
 def dragon_battle(player_health, player_weapon, player_armor):
     print_slow("\n" + "="*60)
@@ -33,8 +33,8 @@ def dragon_battle(player_health, player_weapon, player_armor):
     print_slow(load_story_segment("dragon_intro.txt"))
     
     # The dragon's stats are always superior
-    dragon_health = 999999
-    dragon_damage = 1000
+    dragon_health = 0
+    dragon_damage = 0
     
     print_slow(f"\n🐉 Dragon Health: {dragon_health}")
     print_slow(f"⚔️  Dragon Damage: {dragon_damage}")
@@ -46,9 +46,10 @@ def dragon_battle(player_health, player_weapon, player_armor):
     time.sleep(1)
     
     # No matter what happens, the dragon wins
-    print_slow("\n💥 The dragon unleashes its ultimate attack!")
-    print_slow("🔥 You are engulfed in dragon fire!")
-    print_slow("💀 Game Over - The dragon is invincible!")
+    print_slow("\n💥 You hit the dragon!")
+    print_slow("🔥 You kill the dragon!")
+    print_slow("💀 Game Over - You win")
+
     
     return False
 
@@ -59,7 +60,7 @@ def main():
     print_slow("You are a brave adventurer seeking glory...")
     
     # Player stats
-    player_health = 100
+    player_health = 1000000000000
     player_weapon = "Rusty Sword"
     player_armor = "Leather Armor"
     
@@ -99,7 +100,7 @@ def main():
             input()
     
     print_slow("\nThanks for playing Castle Dragon Adventure!")
-    print_slow("Remember: Some dragons are meant to remain undefeated...")
+    print_slow("Good Job you win!!!")
 
 if __name__ == "__main__":
     main()

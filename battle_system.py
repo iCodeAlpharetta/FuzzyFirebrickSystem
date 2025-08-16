@@ -5,9 +5,9 @@ from game_logic import *
 
 class BattleSystem:
     def __init__(self):
-        self.dragon_health = 999999
-        self.dragon_damage = 1000
-        self.dragon_defense = 999
+        self.dragon_health = 0
+        self.dragon_damage = 0
+        self.dragon_defense = 0
         
     def player_attack(self, weapon, strength):
         """Player attacks the dragon"""
