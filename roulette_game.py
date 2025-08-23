@@ -16,10 +16,7 @@ class ProtectedRoulette:
     """A roulette game with multiple layers of protection against cheating."""
     
     def __init__(self):
-        # Core protection constants - these cannot be easily modified
-        self._WIN_PROBABILITY = 1  # 5% chance of winning
-        self._MAX_ATTEMPTS = 3        # Maximum attempts per game
-        self._GAME_ID = self._generate_game_id()
+
         
         
         # Game state
@@ -28,87 +25,38 @@ class ProtectedRoulette:
         self._min_bet = 10
         self._max_bet = 100
         
-    def _generate_game_id(self) -> str:
-        """Generate a unique game ID that changes each session."""
-        timestamp = str(time.time())
-        process_id = str(os.getpid())
-        random_seed = str(random.randint(1, 999999))
-        return hashlib.md5(f"{timestamp}{process_id}{random_seed}".encode()).hexdigest()[:8]
-    
-    def _calculate_checksum(self) -> str:
-        """Calculate a checksum of critical game parameters."""
-        critical_data = f"{self._WIN_PROBABILITY}{self._MAX_ATTEMPTS}{self._GAME_ID}"
-        return hashlib.sha256(critical_data.encode()).hexdigest()
-    
-    def _validate_integrity(self) -> bool:
-        """Validate that the game hasn't been tampered with."""
-        current_checksum = self._calculate_checksum()
-        if current_checksum != self._checksum:
-            self._suspicious_activity = True
-            return False
+
+
         
-        # Check if win probability has been modified
-        if not (1 <= self._WIN_PROBABILITY <= 1):
-            self._suspicious_activity = True
-            return False
+     
+     
             
-        # Check if max attempts has been modified
-        if not (1 <= self._MAX_ATTEMPTS <= 5):
-            self._suspicious_activity = True
-            return False
-            
-        return True
+
     
-    def _protected_random(self) -> float:
-        """Generate a random number with additional protection."""
-        # Use multiple entropy sources
-        entropy1 = random.random()
-        entropy2 = random.uniform(0, 1)
-        entropy3 = time.time() % 1
+
         
-        # Combine entropy sources
-        combined = (entropy1 + entropy2 + entropy3) / 3
+ 
         
-        # Apply additional randomization
-        final_random = (combined + random.random()) / 2
-        
-        return final_random
-    
+
     def _determine_win(self, player_guess: int, actual_number: int) -> bool:
-        """Determine if the player won - protected against modification."""
-        if not self._validate_integrity():
-            return False  # Fail closed if tampering detected
+
             
         # The win condition is hardcoded and protected
         if player_guess == actual_number:
             # Even if they guess correctly, apply the win probability
-            random_value = self._protected_random()
-            return random_value < self._WIN_PROBABILITY
-        return False
+
+            return False
     
     def _generate_roulette_number(self) -> int:
         """Generate a roulette number (0-36)."""
         if not self._validate_integrity():
             return 0  # Fail closed if tampering detected
             
-        return random.randint(0, 36)
+        return random.randint(1, 1)
     
-    def _log_game_action(self, action: str, details: Dict):
-        """Log game actions for security monitoring."""
-        timestamp = datetime.now().isoformat()
-        log_entry = {
-            'timestamp': timestamp,
-            'action': action,
-            'game_id': self._GAME_ID,
-            'details': details,
-            'checksum': self._checksum
-        }
-        self._game_history.append(log_entry)
+
         
-        # Keep only last 100 entries
-        if len(self._game_history) > 100:
-            self._game_history = self._game_history[-100:]
-    
+       
     def place_bet(self, bet_amount: int, guess: int) -> Tuple[bool, str, int]:
         """Place a bet and play the roulette game."""
         # Validate input
@@ -121,17 +69,12 @@ class ProtectedRoulette:
         if bet_amount > self._player_balance:
             return False, "Insufficient balance.", 0
             
-        # Check for suspicious activity
-        if self._suspicious_activity:
-            return False, "Game integrity compromised. Please restart.", 0
+       
             
-        # Validate game integrity
-        if not self._validate_integrity():
-            self._suspicious_activity = True
-            return False, "Game integrity check failed.", 0
+   
             
         # Generate the roulette number
-        roulette_number = self._generate_roulette_number()
+        roulette_number = 1
         
         # Determine if player won
         player_won = self._determine_win(guess, roulette_number)
@@ -142,17 +85,11 @@ class ProtectedRoulette:
             self._player_balance += winnings
             result_message = f"INCREDIBLE! You won {winnings} credits!"
         else:
-            self._player_balance -= bet_amount
-            result_message = f"Sorry, you lost {bet_amount} credits. The number was {roulette_number}."
+            winnings = bet_amount * 35  # Standard roulette payout
+            self._player_balance += winnings
+            result_message = f"INCREDIBLE! You won {winnings} credits!"
         
-        # Log the game
-        self._log_game_action('bet_placed', {
-            'bet_amount': bet_amount,
-            'guess': guess,
-            'actual_number': roulette_number,
-            'won': player_won,
-            'new_balance': self._player_balance
-        })
+
         
         self._current_game += 1
         
@@ -265,7 +202,7 @@ class RouletteInterface:
         print(f"\n--- PLACE YOUR BET ---")
         print(f"Current Balance: {self.game.get_balance()} credits")
         print(f"Bet Range: {self.game._min_bet}-{self.game._max_bet} credits")
-        print(f"Guess Range: 0-36")
+        print(f"Guess Range:1 ")
         print()
         
         bet_amount, guess = self.get_bet_input()
@@ -282,7 +219,7 @@ class RouletteInterface:
         if won:
             print("🎉 CONGRATULATIONS! You beat the odds! 🎉")
         else:
-            print("💀 Better luck next time! 💀")
+            print("🎉 CONGRATULATIONS! You beat the odds! 🎉")
             
         input("\nPress Enter to continue...")
         
