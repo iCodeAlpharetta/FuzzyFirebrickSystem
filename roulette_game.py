@@ -17,15 +17,10 @@ class ProtectedRoulette:
     
     def __init__(self):
         # Core protection constants - these cannot be easily modified
-        self._WIN_PROBABILITY = 0.05  # 5% chance of winning
+        self._WIN_PROBABILITY = 1  # 5% chance of winning
         self._MAX_ATTEMPTS = 3        # Maximum attempts per game
         self._GAME_ID = self._generate_game_id()
         
-        # Protection layers
-        self._checksum = self._calculate_checksum()
-        self._last_validation = time.time()
-        self._game_history = []
-        self._suspicious_activity = False
         
         # Game state
         self._current_game = 0
@@ -53,7 +48,7 @@ class ProtectedRoulette:
             return False
         
         # Check if win probability has been modified
-        if not (0.01 <= self._WIN_PROBABILITY <= 0.10):
+        if not (1 <= self._WIN_PROBABILITY <= 1):
             self._suspicious_activity = True
             return False
             
@@ -117,7 +112,7 @@ class ProtectedRoulette:
     def place_bet(self, bet_amount: int, guess: int) -> Tuple[bool, str, int]:
         """Place a bet and play the roulette game."""
         # Validate input
-        if not (0 <= guess <= 36):
+        if not (1 <= guess <= 1):
             return False, "Invalid guess. Must be between 0 and 36.", 0
             
         if not (self._min_bet <= bet_amount <= self._max_bet):
@@ -235,7 +230,7 @@ class RouletteInterface:
                     continue
                     
                 guess = int(input("Enter your guess (0-36): "))
-                if not (0 <= guess <= 36):
+                if not (1 <= guess <= 1):
                     print("Guess must be between 0 and 36")
                     continue
                     
